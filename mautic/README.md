@@ -19,13 +19,17 @@ docker volume create mautic_data
 
 docker run --name mautic -d \
     --restart=always \
-    -e MAUTIC_DB_HOST=database \
-    -e MAUTIC_DB_USER=root \
+    -e MAUTIC_DB_HOST=mysql \
+    -e MAUTIC_DB_USER=arcsrc \
     -e MAUTIC_DB_PASSWORD=password \
-    -e MAUTIC_DB_NAME=mautic \
+    -e MAUTIC_DB_NAME=arcsrc \
     -e MAUTIC_RUN_CRON_JOBS=true \
     -p :80 \
     --net=arcnet \
     -v mautic_data:/var/www/html \
     mautic/mautic:v3
  ```   
+
+ ```bash
+ docker exec -it mautic mysqldump -hmysql -uarcsrc -ppassword --no-data test > dump-defs.sql
+ ```
